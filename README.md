@@ -503,3 +503,65 @@ as we intended.
 
 So, that’s hwo we do chaining with work manager.
 
+
+
+-------------------------Periodic work request----------------------
+
+If we have a background work which is repeated periodically, we should use Periodic
+
+Work Request.
+
+For now, Android jetpack periodic work request has a minimum period length of 15 minutes.
+
+I am creating a new function . Private fun
+
+setPeriodicWorkRequest.
+
+Then let’s call to it from the on click listener of the button.
+
+Now,
+
+I am going to create a periodicWorkRequest instance. val periodicWorkRequest equals
+
+PeriodicWorkRequest dot builder
+
+Let’s add downloadingWorker class we created during the previous lesson.
+
+We have two extra parameters in this builder.
+
+Repeat interval and the time unit of the repeat interval.
+
+Let’s set the repeat interval as 16 minutes. For now,
+
+Android Jetpack PeriodicWorkRequest has a minimum period length of 15 minutes. So we have to always
+
+specify 15 minutes or more.
+
+And here the time unit should be TimeUnit.MINUTES
+
+Then build.
+
+Now, let’s get a work manager instance
+
+and enqueue this work request. WorkManager.getInstance
+
+applicationContext then enqueue pass the work request. Now,
+
+if we run this , downloadingWorker will run in every 16 minutes time interval. We can copy this current time
+
+code part from this uploadWorker class and paste it here in the downloadworker class.
+
+We can use it to test the time interval.
+
+Ok
+
+now let’s run the app and see how this works.
+
+So this is the completed time.
+
+Now, let’s wait some time and see if work manager repeating this task as we intended .
+
+Yes, we got the second set of results after 16 minutes .
+
+So, this is how we use work manager periodic work requests for repeating works.
+
