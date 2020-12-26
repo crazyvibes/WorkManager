@@ -308,3 +308,95 @@ As we intended, work moved to running state
 
 and then to succeeded state. So, that’s how we add constraints to works.
 
+
+----------------------set input and output data with work manager--------------------------
+
+
+how to set input and output data with work manager.
+
+When working with work manager,
+
+we might need to pass some arguments to a task. To do that ,
+
+we need to create a data object and set that data object to the request object.
+
+Let’s create a new data object. Val data Object type is Data Let’s import the class
+
+Equals Data dot builder.
+
+For now let’s add just an int value as an argugment for the count value of the for loop. Here, we need to specify
+
+a constant value as key. For that let’s create a Kotlin companion object.
+
+Then I am defining a constant for the count value.
+
+Now we can use it below.
+
+Let’s add 125 for the key count. Then build.
+
+Now, we need to add this data object to the request. Good,
+
+now let’s go to worker class. To provide input data object work manger class has a getter function called input data. We
+
+are going to use it here. Val count
+
+Inputdata Dot getInt
+
+Here we need to provide the constant key value we defined in the MainActivity.
+
+I am inserting 0 as the default count value. Now, Let’s modify the for loop.
+
+Let’s run this app and see how it works.
+
+Good, our worker class receiving input data as we expected. Sometimes we need to get some return
+
+data from a worker class. For this example I am going to write codes to send to task finished time
+
+to the MainActivity. Actually we are doing the same steps to other side .
+
+To get the input data from the MainActivity to worker class, we defined a constant in the MainActivity.
+
+Now, to send output data from the worker class to the MainActivity we need to define a constant in the worker class.
+
+Then, let’s write codes to get the finished time.
+
+I am using SimpleDataFormat class here.
+
+Let’s add the patten to get the time with the date.
+
+Then, get the current date.
+
+Import the class.
+
+Now, let’s create a data object to send output data. val outPutData
+
+Data.Builder()
+
+Since we are sending the time as a string value,
+
+this time we should use putString
+
+Key and the value. Then build.
+
+Now, we need to pass this as an argument to the result.
+
+Now, let's go back to MainActivity and write codes to receive the output message.
+
+Here, inside this observe block, we can write code to receive the returned string value.
+
+We cannot get a returned value if the work is not finished.
+
+So let's do a validation for that first
+
+then get the data object.
+
+Next, we can get the string message using the key
+
+finally, we can display the Toast message.
+
+Now, it’s good time to run the app and see how receiving output data from the worker class works.
+
+Good, as we intended finished time displayed as a toast message.
+
+So, that is how we handle input and out put data.
+
