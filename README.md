@@ -152,3 +152,71 @@ Let’s call to the setOneTimeWorkRequest() function from here. Ok, Let’s run 
 
 Let’s open the logcat and see the results.*/
 
+
+
+-----------------------Get status updates from Workers----------------------
+
+For each work request , work manager allows us to get a LiveData of type WorkInfo .
+
+WorkInfo object contains information about the work. By observing it we can determine the current status and
+
+other information about the work.
+
+Let me show you how to do it. To observe live data,
+
+we need the work manager instance .
+
+We have already use the work manager here.
+
+So instead of invoking getInstance twice, let’s define this as a separate variable. val workManager
+
+equals WorkManager.getInstance
+
+Pass the applicationContext.
+
+Now, replace this part with our new instance.
+
+All right,
+
+Then I am going to write codes to observe the WorkInfo. workManager
+
+.getWorkInfoByIdLiveData here,
+
+we need to provide the id of the work request. uploadRequest.id then observe
+
+owner is this activity. Observer.
+
+Here, you can see we have a WorkInfo object as it.
+
+Then, we will display the current state of the work on the textview.
+
+textView.text = it. You can see, various information we can get from a workInfo object. state.name
+
+Now, let’s run the app and see how this works.
+
+We can see the state as Succeeded.
+
+Actually a work has four states. BLOCKED, ENQUEUED, RUNNING and SUCCEEDED. Blocked state occurs only if
+
+the work is blocked in a chain of works.
+
+Work enters to ENQUEUED state as soon as the work is next in the chain of work and eligible to run.
+
+IF there is a constraint to be met, work will have to
+
+stay in the enqueued state. When a work is actively executing it is called
+
+running state. After a work successfully completed, work enters to succeeded state. Actually, we
+
+will be able to see the running state
+
+if we increase the value in this for loop. Let’s make it 600000.
+
+Run the app again to see how this works.
+
+You can see the running state now.
+
+And finally work entered to succeeded state.
+
+So, this is how we get state updates form a work.
+

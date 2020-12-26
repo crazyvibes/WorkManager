@@ -11,7 +11,7 @@ import java.lang.Exception
 class UploadWorker(context:Context,params:WorkerParameters) : Worker(context,params) {
     override fun doWork(): Result {
         try {
-           for(i:Int in 0..600){
+           for(i:Int in 0..600000){
                Log.i("MyTag","Uploading $i")
            }
             return Result.success()
