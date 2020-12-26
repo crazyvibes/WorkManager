@@ -400,3 +400,106 @@ Good, as we intended finished time displayed as a toast message.
 
 So, that is how we handle input and out put data.
 
+
+-----------------------chaining work--------------------------
+
+ With work manager we can sequentially and parallelly chain different tasks.
+
+As an example, Let’s say we need to upload some images to a server.
+
+We need to filter them first, compress them and then upload them to the server.
+
+We already have a upload worker class.
+
+Let me very quickly create two more worker classes for the demonstration.
+
+I am naming this as FilteringWorker.
+
+We can copy these codes from UploadWorker class. Change the name
+
+We don’t need this companion object.
+
+We don’t need input data. Let’s just set this to 300.
+
+And I am changing this as
+
+filtering. Let’s also remove these codes.
+
+Now I am creating another class.
+
+Naming this as Compressing worker.
+
+Let’s
+
+copy paste from this class.
+
+Change the name.
+
+Change this to compressing .
+
+All right. Now, let’s go back to MainActivity.
+
+Here, let’s write OneTimeWorkRequests for our new worker classes.
+
+Okay.
+
+This is how we chain workers.
+
+beginWith
+
+filtering request. Then compressing request.
+
+Then uploading request. Finally enqueue .
+
+This has to be empty now.
+
+So this is sequential chaining.
+
+You can chain any number of workers using this then
+
+function. Now, let’s run the app and see how this works.
+
+Let’s see. These are from filtering worker.
+
+Then compressing worker. And uploading worker.
+
+So, chaining is working as we intended.
+
+Now, To demonstrate paralle chainging, let’s assume we need to download some images from another server
+
+while filtering the images in the phone.
+
+For that I am creating a new worker classs. I am naming this as downloading worker.
+
+Copy paste and modify the code.
+
+Let’s make this 3000
+
+and let’s also change the number from filtering worker to 3000.
+
+Otherwise we might not be able to see any significant difference. Let’s create a work request instance
+
+for our new worker.
+
+When we are chaining parallel workers,
+
+first we need to add them to a mutable list, Let’s create a MutableList instance of OneTimeWorkRequest.
+
+Then add the paralle workers.
+
+Now we should pass that list to this
+
+beingwith function.
+
+Now, let’s run the app and see how these new codes work. Ok,
+
+You can see these logs from downloadrequest and filtering request have mixed. That indicates a paralle execution.
+
+After that you can see a sequential execution for compressing and
+
+uploading workers
+
+as we intended.
+
+So, that’s hwo we do chaining with work manager.
+
