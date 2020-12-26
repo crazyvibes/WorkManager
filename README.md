@@ -220,3 +220,91 @@ And finally work entered to succeeded state.
 
 So, this is how we get state updates form a work.
 
+------------------------------Set Constraints------------------------------
+
+When we are using workManager, most of the time, we need to write codes to run task under different specific conditions.
+
+Work manager uses constraints provided by us to decide when the work should run.
+
+As an example, let’s say our app has a large video file to upload to the back end server. It is a battery consuming task.
+
+In that case we might need to specify, that the task should run only when the device is connected to the charger.
+
+Let me show you how this works with a code example.
+
+Let’s create a work manager constraints instance using Constraints.Builder. val constraints equals Constraints
+
+.Builder()
+
+There are a lot of constraints
+
+we can set. For now let’s set requiresCharging as true.
+
+Next Build()
+
+Now, we need to add this to the OneTimeWorkRequest instance.
+
+Before run the app, let’s check the charger settings of our emulator.
+
+At the moment, charger connection is none and battery status is not changing.
+
+So, if we run the app now, if our work manager constraint works properly,
+
+work manager should not execute the task.
+
+Let’s see how this works.
+
+Now, I am going click on the start button.
+
+We are not seeing any log results.
+
+So work manager hasn’t started the background task. And our work is in the enqueued state.
+
+Now, I am going to change the battery status form not charging to charging.
+
+Set the charger connection as AC Charger. And battery status as charging. Did you See, as soon as we changed the battery status from not charging to charging
+
+our task changed from enqueued state to running state.
+
+Now, what will happen if the user exists from the app before plugin the device to a charger?
+
+Actually, The work manager library has a local database that tracks all of the information and statuses of all of the work.
+
+This database is what enables
+
+WorkManager to guarantee the execution of the work even if the user exists from the app or user’s device restarts
+
+and work gets interrupted.
+
+Now, let’s add another constraint.
+
+This time we are going to check the internet connection. Before add constraints for the internet connection
+
+we need to go to AndroidManifest.xml file and app permissions to use internet.
+
+Let’s also add a permission to ACCESS_NETWORK_STATE.
+
+ACCESS_NETWORK_STATE.
+
+Then here
+
+in the main activity,
+
+all we need to do is this. setRequiredNetworkType
+
+NetworkType.CONNECTED
+
+Now, to test this I am going to change the emulator to airplane mode.
+
+Then networktype will be disconnected.
+
+Let’s run the app and see how this works. As we expected
+
+our job is in the enqueued state. Now, remove the
+
+airplane mode.
+
+As we intended, work moved to running state
+
+and then to succeeded state. So, that’s how we add constraints to works.
+
