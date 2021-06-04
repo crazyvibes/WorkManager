@@ -59,6 +59,9 @@ class MainActivity : AppCompatActivity() {
         val parallelWorks:MutableList<OneTimeWorkRequest> = mutableListOf<OneTimeWorkRequest>()
          parallelWorks.add(downloadingRequest)
          parallelWorks.add(filteringRequest)
+         
+         
+         
         //for multiple worker class (sequential chaining)
         workManager
                 .beginWith(parallelWorks)
